@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    body {
+        background-color: silver;
+    }
+    #drop {
+        border-style: solid;
+        height: 200px;
+        text-align: center;
+        font-size: 34px;
+        font-family: "Arial Black" ;
+    }
+    #drop:hover {
+        background-color: yellow;
+
+    }
+    #show {
+        border-style: solid;
+        height: 300px;
+        float: right;
+        width: 300px;
+    }
+    .showElement {
+        color: red;
+    }
+    img {
+        height: 300px;
+    }
+</style>
+<body>
+
+
+<div id="drop">  UNESITE OVDE STA ZELITE DA NARUCITE  </div>
+<div id="show"></div>
+
+<img src="apple_256.png" alt="Apple">
+<img src="Banana.png" alt="Banana">
+<img src="orange_PNG805.png" alt="orange">
+
+<script>
+
+    let images = document.getElementsByTagName('img');
+    let drop = document.getElementById('drop');
+    let price=0;
+
+    drop.addEventListener('dragover', drag);
+    drop.addEventListener('drop', dropItem);
+
+    for(let i = 0; i < images.length; i++)
+    {
+        images[i].addEventListener('dragstart', dragStart);
+    }
+
+    function dragStart(event) {
+        event.dataTransfer.setData('data',event.target.id);
+    }
+
+    function drag(event) {
+        event.preventDefault();
+    }
+
+    function dropItem(event) {
+        event.preventDefault();
+        let fruit;
+        let text = event.dataTransfer.getData("text");
+        if(text.includes("orange")) {
+            fruit="Pomorandzu";
+            price=price+200;
+        }
+        if(text.includes("Banana")) {
+            fruit="Bananu";
+            price=price+300;
+        }
+        if(text.includes("apple")) {
+            fruit="Jabuku";
+            price=price+150;
+        }
+        let show = document.getElementById('show');
+        let element = document.createElement('div');
+        element.setAttribute('class', 'showElement');
+        element.innerHTML = "Prevukli ste : " + fruit + "<br>" + " Vasa ukupna narudzbina je: "  + price + " dinara" ;
+
+        show.appendChild(element);
+
+    }
+</script>
+
+</body>
+</html>
